@@ -12,9 +12,7 @@ LLACircularProgressView is a deligthful iOS7 style circular progress view with a
 
 ## Example
 
-<p align="center" >
 ![Screenshot](http://i.imgur.com/LboRSet.png)
-</p>
 
 Open up the included Xcode project for an example app.
 
