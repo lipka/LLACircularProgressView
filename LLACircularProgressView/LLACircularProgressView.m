@@ -8,6 +8,7 @@
 
 #import "LLACircularProgressView.h"
 #import <QuartzCore/QuartzCore.h>
+#import <Availability.h>
 
 @interface LLACircularProgressView ()
 
@@ -100,31 +101,36 @@
 }
 
 - (UIColor *)progressTintColor {
+#ifdef __IPHONE_7_0
     if ([self respondsToSelector:@selector(tintColor)]) {
         return self.tintColor;
-    } else {
-        return _progressTintColor;
     }
+#endif
+    return _progressTintColor;
 }
 
 - (void)setProgressTintColor:(UIColor *)progressTintColor {
+#ifdef __IPHONE_7_0
     if ([self respondsToSelector:@selector(setTintColor:)]) {
         self.tintColor = progressTintColor;
-    } else {
-        _progressTintColor = progressTintColor;
-        self.progressLayer.strokeColor = progressTintColor.CGColor;
-        [self setNeedsDisplay];
+        return;
     }
+#endif
+    _progressTintColor = progressTintColor;
+    self.progressLayer.strokeColor = progressTintColor.CGColor;
+    [self setNeedsDisplay];
 }
 
 #pragma mark - Other
 
+#ifdef __IPHONE_7_0
 - (void)tintColorDidChange {
     [super tintColorDidChange];
     
     self.progressLayer.strokeColor = self.tintColor.CGColor;
     [self setNeedsDisplay];
 }
+#endif
 
 #pragma mark - Private
 
