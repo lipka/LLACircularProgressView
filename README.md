@@ -63,7 +63,7 @@ LLACircularProgressView is tested on iOS6 and iOS7 and requires ARC.
 Lukas Lipka
 
 - http://github.com/lipka
-- http://twitter.com/lipka
+- http://twitter.com/lipec
 - http://lukaslipka.com
 
 ## License
