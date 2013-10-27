@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = 'LLACircularProgressView'
-  spec.version = '0.1.0'
+  spec.version = '0.1.1'
   spec.authors = { 'Lukas Lipka' => 'lukaslipka@gmail.com' }
   spec.homepage = 'https://github.com/lipka/LLACircularProgressView'
   spec.summary = 'An iOS7 style circular progress view with a stop button.'
