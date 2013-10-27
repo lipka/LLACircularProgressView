@@ -27,7 +27,7 @@
     self.circularProgressView.center = CGPointMake(CGRectGetMidX(self.view.bounds), 50);
     [self.circularProgressView addTarget:self action:@selector(stop:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.circularProgressView];
-    
+
     _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
 }
 
@@ -38,8 +38,8 @@
 
 - (void)stop:(id)sender {
     [_timer invalidate];
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"LLCircularProgressView" message:@"Yep, it's done. Check the dimmed colors effect." delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil];
+
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"LLACircularProgressView" message:@"Yep, it's done. Check the dimmed colors effect." delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil];
     [alertView show];
 }
 
