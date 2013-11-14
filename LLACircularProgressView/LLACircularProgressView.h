@@ -32,4 +32,10 @@
  */
 - (void)setProgress:(float)progress animated:(BOOL)animated;
 
+/**
+ Set icon in the center of the view.
+ */
+- (void)setIcon:(UIImage *)icon;
+- (void)setIcon:(UIImage *)icon animated:(BOOL)animated;
+
 @end

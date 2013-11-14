@@ -100,6 +100,28 @@
     _progress = progress;
 }
 
+- (void)setIcon:(UIImage *)icon
+{
+	[self setIcon:icon animated:NO];
+}
+
+- (void)setIcon:(UIImage *)icon animated:(BOOL)animated
+{
+	if (nil == self.imageView)
+	{
+		self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+		[self addSubview:self.imageView];
+	}
+	[UIView animateWithDuration:animated ? 0.3f : 0.0f delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
+		self.imageView.alpha = 0.0f;
+	} completion:^(BOOL finished) {
+		[self.imageView setImage:icon];
+		[UIView animateWithDuration:animated ? 0.3f : 0.0f delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
+			self.imageView.alpha = 1.0f;
+		} completion:NULL];
+	}]
+}
+
 - (UIColor *)progressTintColor {
 #ifdef __IPHONE_7_0
     if ([self respondsToSelector:@selector(tintColor)]) {
