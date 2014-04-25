@@ -100,6 +100,29 @@
     _progress = progress;
 }
 
+- (void)setProgress:(float)progress duration:(NSTimeInterval)duration completion:(void(^)(LLACircularProgressView *progressView))completion {
+    
+    if (progress > 0) {
+        [CATransaction begin];
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+        animation.fromValue = self.progress == 0 ? @0 : nil;
+        animation.toValue = [NSNumber numberWithFloat:progress];
+        animation.duration = duration;
+        [CATransaction setCompletionBlock:^{
+            completion(self);
+        }];
+        self.progressLayer.strokeEnd = progress;
+        [self.progressLayer addAnimation:animation forKey:@"animation"];
+        [CATransaction commit];
+    } else {
+        self.progressLayer.strokeEnd = 0.0f;
+        [self.progressLayer removeAnimationForKey:@"animation"];
+    }
+    
+    _progress = progress;
+    
+}
+
 - (UIColor *)progressTintColor {
 #ifdef __IPHONE_7_0
     if ([self respondsToSelector:@selector(tintColor)]) {

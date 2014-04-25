@@ -32,4 +32,9 @@
  */
 - (void)setProgress:(float)progress animated:(BOOL)animated;
 
+/**
+ Set the progress of the circular view in an animated manner. Only valid for values between `0` and `1`.
+ */
+- (void)setProgress:(float)progress duration:(NSTimeInterval)duration completion:(void(^)(LLACircularProgressView *progressView))completion;
+
 @end
