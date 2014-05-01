@@ -35,6 +35,20 @@
 @property (nonatomic, strong) UIColor *progressTintColor;
 
 /**
+ The width of the progress line
+ 
+ The default is `3`.
+ */
+@property (nonatomic) CGFloat progressLineWidth;
+
+/**
+ Whether enable pie mode.
+ 
+ The default is `NO`.
+ */
+@property (nonatomic) BOOL pieMode;
+
+/**
  Set the progress of the circular view in an animated manner. Only valid for values between `0` and `1`.
  */
 - (void)setProgress:(float)progress animated:(BOOL)animated;

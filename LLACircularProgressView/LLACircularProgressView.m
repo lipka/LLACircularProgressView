@@ -36,6 +36,7 @@
 
 - (void)initialize {
     self.stopButtonVisible = YES;
+    self.pieMode = NO;
     self.contentMode = UIViewContentModeRedraw;
     self.backgroundColor = [UIColor whiteColor];
 
@@ -45,7 +46,7 @@
     _progressLayer.strokeColor = self.progressTintColor.CGColor;
     _progressLayer.strokeEnd = 0;
     _progressLayer.fillColor = nil;
-    _progressLayer.lineWidth = 3;
+    self.progressLineWidth = 3;
     [self.layer addSublayer:_progressLayer];
 }
 
@@ -81,42 +82,33 @@
 }
 
 - (void)setProgress:(float)progress animated:(BOOL)animated {
-    if (progress > 0) {
-        if (animated) {
-            CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-            animation.fromValue = self.progress == 0 ? @0 : nil;
-            animation.toValue = [NSNumber numberWithFloat:progress];
-            animation.duration = 1;
-            self.progressLayer.strokeEnd = progress;
-            [self.progressLayer addAnimation:animation forKey:@"animation"];
-        } else {
-            [CATransaction begin];
-            [CATransaction setDisableActions:YES];
-            self.progressLayer.strokeEnd = progress;
-            [CATransaction commit];
-        }
-    } else {
-        self.progressLayer.strokeEnd = 0.0f;
-        [self.progressLayer removeAnimationForKey:@"animation"];
-    }
-    
-    _progress = progress;
+    [self setProgress:progress duration:animated?0.75:0 completion:NULL];
 }
 
 - (void)setProgress:(float)progress duration:(NSTimeInterval)duration completion:(void(^)(LLACircularProgressView *progressView))completion {
     
     if (progress > 0) {
-        [CATransaction begin];
-        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-        animation.fromValue = self.progress == 0 ? @0 : nil;
-        animation.toValue = [NSNumber numberWithFloat:progress];
-        animation.duration = duration;
-        [CATransaction setCompletionBlock:^{
-            completion(self);
-        }];
-        self.progressLayer.strokeEnd = progress;
-        [self.progressLayer addAnimation:animation forKey:@"animation"];
-        [CATransaction commit];
+        if (duration>0) {
+            [CATransaction begin];
+            CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+            animation.fromValue = @(self.progress);
+            animation.toValue = [NSNumber numberWithFloat:progress];
+            animation.duration = duration;
+            if (completion) {
+                [CATransaction setCompletionBlock:^{
+                    completion(self);
+                }];
+            }
+            self.progressLayer.strokeEnd = progress;
+            [self.progressLayer addAnimation:animation forKey:@"animation"];
+            [CATransaction commit];
+        }else{
+            [CATransaction begin];
+            [CATransaction setDisableActions:YES];
+            self.progressLayer.strokeEnd = progress;
+            [CATransaction commit];
+        }
+
     } else {
         self.progressLayer.strokeEnd = 0.0f;
         [self.progressLayer removeAnimationForKey:@"animation"];
@@ -147,6 +139,11 @@
     [self setNeedsDisplay];
 }
 
+-(void)setProgressLineWidth:(CGFloat)progressLineWidth{
+    _progressLineWidth = progressLineWidth;
+    _progressLayer.lineWidth = progressLineWidth;
+}
+
 #pragma mark - Other
 
 #ifdef __IPHONE_7_0
@@ -162,7 +159,10 @@
 
 - (void)updatePath {
     CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    self.progressLayer.path = [UIBezierPath bezierPathWithArcCenter:center radius:self.bounds.size.width / 2 - 2 startAngle:-M_PI_2 endAngle:-M_PI_2 + 2 * M_PI clockwise:YES].CGPath;
+    CGFloat lineWidth = (_pieMode)?(self.bounds.size.width/2)-1:self.progressLineWidth;
+    _progressLayer.lineWidth = lineWidth;
+
+    self.progressLayer.path = [UIBezierPath bezierPathWithArcCenter:center radius:self.bounds.size.width / 2 - ((lineWidth/2)+1) startAngle:-M_PI_2 endAngle:-M_PI_2 + 2 * M_PI clockwise:YES].CGPath;
 }
 
 @end
