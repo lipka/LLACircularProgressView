@@ -68,7 +68,7 @@
     stopRect.origin.y = CGRectGetMidY(self.bounds) - self.bounds.size.height / 8;
     stopRect.size.width = self.bounds.size.width / 4;
     stopRect.size.height = self.bounds.size.height / 4;
-    CGContextFillRect(ctx, CGRectIntegral(stopRect));
+    //    CGContextFillRect(ctx, CGRectIntegral(stopRect));
 }
 
 #pragma mark - Accessors
@@ -109,14 +109,19 @@
 {
 	if (nil == self.imageView)
 	{
-		self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        CGRect stopRect;
+        stopRect.origin.x = CGRectGetMidX(self.bounds) - self.bounds.size.width / 8;
+        stopRect.origin.y = CGRectGetMidY(self.bounds) - self.bounds.size.height / 8;
+        stopRect.size.width = self.bounds.size.width / 4;
+        stopRect.size.height = self.bounds.size.height / 4;
+		self.imageView = [[UIImageView alloc] initWithFrame:stopRect];
 		[self addSubview:self.imageView];
 	}
-	[UIView animateWithDuration:animated ? 0.3f : 0.0f delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
+	[UIView animateWithDuration:animated ? 0.15f : 0.0f delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
 		self.imageView.alpha = 0.0f;
 	} completion:^(BOOL finished) {
 		[self.imageView setImage:icon];
-		[UIView animateWithDuration:animated ? 0.3f : 0.0f delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
+		[UIView animateWithDuration:animated ? 0.15f : 0.0f delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
 			self.imageView.alpha = 1.0f;
 		} completion:NULL];
 	}];
