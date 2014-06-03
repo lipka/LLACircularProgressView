@@ -40,6 +40,12 @@ circulerProgressView.tintColor = [UIColor redColor];
 [circularProgressView setProgress:0.8f animated:YES];
 ```
 
+// Initalize a timer 
+_progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(updateSlider) userInfo:nil repeats:YES];
+
+// Add it to the current run loop so that the progress doesn't stop on a UI event (eg. when you put a circular progress bar in a UIScrollView)
+[[NSRunLoop currentRunLoop] addTimer:_progressTimer forMode:NSRunLoopCommonModes];
+
 See the [header](LLACircularProgressView/LLACircularProgressView.h) for full documentation.
 
 ## Installation
