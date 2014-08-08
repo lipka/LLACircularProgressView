@@ -2,6 +2,10 @@
   <img src="http://i.imgur.com/q0HduL5.png" alt="LLACircularProgressView" title="LLACircularProgressView">
 </p>
 
+[![Build Status](https://travis-ci.org/lipka/LLACircularProgressView.svg)](https://travis-ci.org/lipka/LLACircularProgressView)
+[![Version](http://cocoapod-badges.herokuapp.com/v/LLACircularProgressView/badge.png)](http://cocoadocs.org/docsets/LLACircularProgressView)
+[![Platform](http://cocoapod-badges.herokuapp.com/p/LLACircularProgressView/badge.png)](http://cocoadocs.org/docsets/LLACircularProgressView)
+
 LLACircularProgressView is a deligthful iOS7 style circular progress view with a stop button.
 
 - Animated progress display
