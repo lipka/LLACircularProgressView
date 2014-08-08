@@ -18,7 +18,7 @@
  
  The default is `0`.
  */
-@property (nonatomic) float progress;
+@property (nonatomic) CGFloat progress;
 
 /**
  A tintColor replacement for pre-iOS7 SDK versions. On iOS7 and higher use `tintColor` for setting this.
@@ -30,6 +30,12 @@
 /**
  Set the progress of the circular view in an animated manner. Only valid for values between `0` and `1`.
  */
-- (void)setProgress:(float)progress animated:(BOOL)animated;
+- (void)setProgress:(CGFloat)progress animated:(BOOL)animated;
+
+/**
+ Set icon in the center of the view.
+ */
+- (void)setIcon:(UIImage *)icon;
+- (void)setIcon:(UIImage *)icon animated:(BOOL)animated;
 
 @end

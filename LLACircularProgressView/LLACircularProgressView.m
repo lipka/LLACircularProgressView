@@ -73,11 +73,11 @@
 
 #pragma mark - Accessors
 
-- (void)setProgress:(float)progress {
+- (void)setProgress:(CGFloat)progress {
     [self setProgress:progress animated:NO];
 }
 
-- (void)setProgress:(float)progress animated:(BOOL)animated {
+- (void)setProgress:(CGFloat)progress animated:(BOOL)animated {
     if (progress > 0) {
         if (animated) {
             CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
@@ -98,6 +98,28 @@
     }
     
     _progress = progress;
+}
+
+- (void)setIcon:(UIImage *)icon
+{
+	[self setIcon:icon animated:NO];
+}
+
+- (void)setIcon:(UIImage *)icon animated:(BOOL)animated
+{
+	if (nil == self.imageView)
+	{
+		self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+		[self addSubview:self.imageView];
+	}
+	[UIView animateWithDuration:animated ? 0.3f : 0.0f delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
+		self.imageView.alpha = 0.0f;
+	} completion:^(BOOL finished) {
+		[self.imageView setImage:icon];
+		[UIView animateWithDuration:animated ? 0.3f : 0.0f delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
+			self.imageView.alpha = 1.0f;
+		} completion:NULL];
+	}]
 }
 
 - (UIColor *)progressTintColor {
