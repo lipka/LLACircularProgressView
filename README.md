@@ -12,7 +12,7 @@ LLACircularProgressView is a deligthful iOS7 style circular progress view with a
 - Stop button
 - Respects iOS7 interface tint color
 - Automatically dims the tint color when an alert view or an action sheet is presented
-- iOS6 an iOS7 compatible
+- iOS7 compatible
 
 ## Example
 
