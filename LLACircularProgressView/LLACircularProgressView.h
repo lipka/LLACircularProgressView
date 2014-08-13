@@ -21,6 +21,13 @@
 @property (nonatomic) float progress;
 
 /**
+ Whether or not to show the stop button.
+ 
+ The default is `YES`.
+ */
+@property (nonatomic) BOOL stopButtonVisible;
+
+/**
  A tintColor replacement for pre-iOS7 SDK versions. On iOS7 and higher use `tintColor` for setting this.
  
  The default is the parent view's `tintColor` or a black color on versions lower than iOS7.
@@ -28,8 +35,27 @@
 @property (nonatomic, strong) UIColor *progressTintColor;
 
 /**
+ The width of the progress line
+ 
+ The default is `3`.
+ */
+@property (nonatomic) CGFloat progressLineWidth;
+
+/**
+ Whether enable pie mode.
+ 
+ The default is `NO`.
+ */
+@property (nonatomic) BOOL pieMode;
+
+/**
  Set the progress of the circular view in an animated manner. Only valid for values between `0` and `1`.
  */
 - (void)setProgress:(float)progress animated:(BOOL)animated;
+
+/**
+ Set the progress of the circular view in an animated manner. Only valid for values between `0` and `1`.
+ */
+- (void)setProgress:(float)progress duration:(NSTimeInterval)duration completion:(void(^)(LLACircularProgressView *progressView))completion;
 
 @end

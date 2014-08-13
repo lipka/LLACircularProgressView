@@ -10,6 +10,8 @@ LLACircularProgressView is a deligthful iOS7 style circular progress view with a
 
 - Animated progress display
 - Stop button
+- Pie Mode button
+- Adjustable progress line width
 - Respects iOS7 interface tint color
 - Automatically dims the tint color when an alert view or an action sheet is presented
 - iOS7 compatible
@@ -30,7 +32,11 @@ LLACircularProgressView *circularProgressView = [[LLACircularProgressView alloc]
 circularProgressView.progress = 0.5f;
 
 // Optionally change the tint color
-circulerProgressView.tintColor = [UIColor redColor];
+circularProgressView.tintColor = [UIColor redColor];
+
+// Optionally change the progress line width
+circularProgressView.progressLineWidth = [UIColor redColor];
+
 
 // Optionally hook up the stop action
 [circularProgressView addTarget:self action:@selector(stop:) forControlEvents:UIControlEventTouchUpInside];
