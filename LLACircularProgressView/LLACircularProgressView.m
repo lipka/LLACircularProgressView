@@ -37,7 +37,7 @@
 - (void)initialize {
     self.contentMode = UIViewContentModeRedraw;
     self.backgroundColor = [UIColor whiteColor];
-
+    
     _progressTintColor = [UIColor blackColor];
     
     _progressLayer = [[CAShapeLayer alloc] init];
@@ -52,13 +52,13 @@
     [super layoutSubviews];
     
     self.progressLayer.frame = self.bounds;
-
+    
     [self updatePath];
 }
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-
+    
     CGContextSetFillColorWithColor(ctx, self.progressTintColor.CGColor);
     CGContextSetStrokeColorWithColor(ctx, self.progressTintColor.CGColor);
     CGContextStrokeEllipseInRect(ctx, CGRectInset(self.bounds, 1, 1));
@@ -68,16 +68,16 @@
     stopRect.origin.y = CGRectGetMidY(self.bounds) - self.bounds.size.height / 8;
     stopRect.size.width = self.bounds.size.width / 4;
     stopRect.size.height = self.bounds.size.height / 4;
-    CGContextFillRect(ctx, CGRectIntegral(stopRect));
+    //    CGContextFillRect(ctx, CGRectIntegral(stopRect));
 }
 
 #pragma mark - Accessors
 
-- (void)setProgress:(float)progress {
+- (void)setProgress:(CGFloat)progress {
     [self setProgress:progress animated:NO];
 }
 
-- (void)setProgress:(float)progress animated:(BOOL)animated {
+- (void)setProgress:(CGFloat)progress animated:(BOOL)animated {
     if (progress > 0) {
         if (animated) {
             CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
@@ -98,6 +98,33 @@
     }
     
     _progress = progress;
+}
+
+- (void)setIcon:(UIImage *)icon
+{
+	[self setIcon:icon animated:NO];
+}
+
+- (void)setIcon:(UIImage *)icon animated:(BOOL)animated
+{
+	if (nil == self.imageView)
+	{
+        CGRect stopRect;
+        stopRect.origin.x = CGRectGetMidX(self.bounds) - self.bounds.size.width / 8;
+        stopRect.origin.y = CGRectGetMidY(self.bounds) - self.bounds.size.height / 8;
+        stopRect.size.width = self.bounds.size.width / 4;
+        stopRect.size.height = self.bounds.size.height / 4;
+		self.imageView = [[UIImageView alloc] initWithFrame:stopRect];
+		[self addSubview:self.imageView];
+	}
+	[UIView animateWithDuration:animated ? 0.15f : 0.0f delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
+		self.imageView.alpha = 0.0f;
+	} completion:^(BOOL finished) {
+		[self.imageView setImage:icon];
+		[UIView animateWithDuration:animated ? 0.15f : 0.0f delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
+			self.imageView.alpha = 1.0f;
+		} completion:NULL];
+	}];
 }
 
 - (UIColor *)progressTintColor {
